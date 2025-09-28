@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\AcceptOfferRequest;
 use App\Http\Requests\Api\CreateOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Managers\Constants;
-use App\Models\Order;
 use App\Models\Offer;
+use App\Models\Order;
 use App\Models\OrderImage;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 

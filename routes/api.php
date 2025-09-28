@@ -1,11 +1,20 @@
 <?php
 
+use App\Http\Controllers\Api\Web\AuthController;
+use App\Http\Controllers\Api\Web\BrandController;
+use App\Http\Controllers\Api\Web\NotificationController;
+use App\Http\Controllers\Api\Web\OfferController;
+use App\Http\Controllers\Api\Web\OrderController;
+use App\Http\Controllers\Api\Web\StatisticsController;
+
+use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Api\Admin\BrandController as AdminBrandController;
+use App\Http\Controllers\Api\Admin\OfferController as  AdminOfferController;;
+use App\Http\Controllers\Api\Admin\OrderController as  AdminOrderController;
+use App\Http\Controllers\Api\Admin\StatisticsController as  AdminStatisticsController;
+use App\Http\Controllers\Api\Admin\NotificationController as AdminNotificationController;
+
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\Api\OfferController;
-use App\Http\Controllers\Api\BrandController;
-use App\Http\Controllers\Api\NotificationController;
 
 // ✅ Auth
 Route::prefix('auth')->group(function () {
@@ -40,13 +49,21 @@ Route::middleware('auth:sanctum')->group(function () {
 
     /***********************     ADMIN          ***************************/
     Route::middleware(['admin'])->prefix('admin')->group(function () {
-        Route::post('/car-brands', [BrandController::class, 'store']);
-        Route::post('/car-brands/{id}', [BrandController::class, 'update']);
-        Route::delete('/car-brands/{id}', [BrandController::class, 'destroy']);
+        Route::post('/brands', [BrandController::class, 'store']);
+        Route::post('/brands/{id}', [BrandController::class, 'update']);
+        Route::delete('/brands/{id}', [BrandController::class, 'destroy']);
+
+        Route::apiResource('users', AdminUserController::class);
+        Route::apiResource('orders', AdminOrderController::class);
+        Route::apiResource('offers', AdminOfferController::class);
+        Route::post('/offers/dealer/{id}', [AdminOfferController::class, 'dealerOffers']);
+
+        Route::apiResource('brands', AdminBrandController::class);
+        Route::get('/statistics', [AdminStatisticsController::class, 'index']);
     });
 
 });
 
 
 // ✅ Statistics
-//Route::get('/statistics', [StatisticsController::class, 'index']);
+Route::get('/statistics', [StatisticsController::class, 'index']);

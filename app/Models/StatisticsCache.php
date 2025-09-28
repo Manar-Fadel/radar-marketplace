@@ -17,6 +17,16 @@ class StatisticsCache extends Model
     protected $casts = [
         'last_updated' => 'datetime',
     ];
+    protected array $keys = [
+        'total_brands',
+        'total_orders',
+        'accepted_orders',
+        'total_offers',
+        'accepted_offers',
+        'total_dealers',
+        'total_bank_delegates'
+    ];
+
     public static function getStat(string $metric_name)
     {
         return self::where('metric_name', $metric_name)->first();

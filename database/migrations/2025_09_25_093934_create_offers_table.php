@@ -1,5 +1,6 @@
 <?php
 
+use App\Managers\Constants;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,8 @@ return new class extends Migration
             $table->foreignId('order_id')->constrained('orders', 'id', 'offer_order_id')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users', 'id', 'offer_user_id')->onDelete('cascade');
             $table->decimal('price', 12, 2)->index();
-            $table->enum('status', ['active', 'cancelled', 'accepted', 'rejected'])->default('active')->index();
+            $table->text('description')->nullable();
+            $table->enum('status', [Constants::PENDING, Constants::ACCEPTED, Constants::CANCELLED])->default(Constants::PENDING)->index();
             $table->timestamps();
             $table->softDeletes();
             $table->index('created_at');

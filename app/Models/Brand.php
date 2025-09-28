@@ -20,6 +20,24 @@ class Brand extends Model
         $locale = app()->getLocale();
         return  ($locale == 'en') ? $this->brand_name_en : $this->brand_name_ar;
     }
+    public function getLogoUrlAttribute($value): string
+    {
+        if ($value) {
+
+            // check if image in GCS return it, else load it local,
+            if(strpos($value, "/tashleeh_bucket_1/") !== false){
+                return $value;
+            }else{
+                if(strpos($value, "uploads/") !== false){
+                    return asset("brands/$value");
+
+                }else{
+                    return $value;
+                }
+            }
+        }
+        return asset("media/logos/car_make.PNG"); // 80X80 default logo icon
+    }
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'brand_id');
