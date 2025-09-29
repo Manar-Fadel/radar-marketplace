@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Managers\Constants;
+use App\Models\Offer;
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
