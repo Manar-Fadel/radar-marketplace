@@ -47,7 +47,3 @@
 @include("cpanel.includes.order.edit-modal")
 @include("cpanel.includes.order.change-status-modal")
 
-@include("cpanel.includes.order.add-customer-care-modal")
-@include("cpanel.includes.order.update-customer-care-modal")
-@include("cpanel.includes.order.upload-attachment-modal")
-

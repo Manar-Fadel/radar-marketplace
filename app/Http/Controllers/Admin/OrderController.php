@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Managers\Constants;
 use App\Managers\ExcelManager;
@@ -17,7 +18,8 @@ class OrderController extends Controller
         $currentMonthText = Carbon::now()->format('M');
 
         return view('cpanel.order.index', [
-            'brands' => Brand::bluck('name', 'id')->toArray(),
+            'brands' => Brand::pluck('brand_name_en', 'id')->toArray(),
+            'order_statuses' => OrderStatus::cases(),
             'currentMonth' => $currentMonthText,
             'years' => Constants::YEARS_LIST,
             'months' => Constants::MONTHS_LIST,

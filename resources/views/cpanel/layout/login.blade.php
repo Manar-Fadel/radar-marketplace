@@ -39,10 +39,11 @@
 <!-- Page -->
 <style>
     .page-bg {
-        background-image: url({{ URL::asset('assets/media/images/2600x1200/bg-10.png') }});
+        background-size: cover;
+        background-image: url({{ URL::asset('assets/web/images/banner/video-banner.webp') }});
     }
     .dark .page-bg {
-        background-image: url({{ URL::asset('assets/media/images/2600x1200/bg-10-dark.png') }});
+        background-image: url({{ URL::asset('assets/web/images/banner/video-banner.webp') }});
     }
 </style>
 <div class="flex items-center justify-center grow bg-center bg-no-repeat page-bg">

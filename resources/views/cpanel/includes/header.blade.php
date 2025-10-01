@@ -5,7 +5,7 @@
         <!-- Breadcrumbs -->
         <div class="flex [.header_&]:below-lg:hidden items-center gap-1.25 text-xs lg:text-sm font-medium mb-2.5 lg:mb-0" data-reparent="true" data-reparent-mode="prepend|lg:prepend" data-reparent-target="#content_container|lg:#header_container">
        <span class="text-gray-700">
-        Tashleeh Pro
+        Weel Radar
        </span>
         </div>
         <!-- End of Breadcrumbs -->
@@ -219,15 +219,11 @@
                                      </span>
                                     <div class="flex items-center gap-1.5 rounded-md border border-gray-300 text-gray-600 p-1.5 text-2xs font-medium shrink-0">
                                         English
-                                        <img alt="" class="inline-block size-3.5 rounded-full" src="{{ URL::asset("assets/media/flags/united-states.svg") }}"/>
                                     </div>
                                 </div>
                                 <div class="menu-dropdown menu-default light:border-gray-300 w-full max-w-[170px]">
                                     <div class="menu-item active">
                                         <a class="menu-link h-10" href="#">
-                                           <span class="menu-icon">
-                                            <img alt="" class="inline-block size-4 rounded-full" src="{{ URL::asset("assets/media/flags/united-states.svg") }}"/>
-                                           </span>
                                             <span class="menu-title">
                                             English
                                            </span>
@@ -239,9 +235,6 @@
                                     </div>
                                     <div class="menu-item">
                                         <a class="menu-link h-10" href="#">
-                                           <span class="menu-icon">
-                                            <img alt="" class="inline-block size-4 rounded-full" src="{{ URL::asset("assets/media/flags/saudi-arabia.svg") }}"/>
-                                           </span>
                                             <span class="menu-title">
                                             Arabic
                                            </span>

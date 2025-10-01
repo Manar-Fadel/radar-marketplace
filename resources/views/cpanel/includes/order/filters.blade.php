@@ -15,9 +15,9 @@
             <option value="">
                 Review Status
             </option>
-            @foreach($brands as $brand)
-                <option value="{{ $brand->name }}">
-                    {{ $brand->value }}
+            @foreach($brands as $key => $brand)
+                <option value="{{ $key }}">
+                    {{ $brand }}
                 </option>
             @endforeach
         </select>

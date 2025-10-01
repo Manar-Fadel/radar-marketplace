@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\OfferStatus;
 use App\Http\Controllers\Controller;
-use App\Managers\AdminManager;
 use App\Managers\Constants;
 use App\Managers\ExcelManager;
 use App\Models\User;
@@ -16,13 +15,8 @@ class DealerController extends Controller
 {
     public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
-        $status = $request->get('status');
-        $cp_status = $request->get('cp_status');
+        $trusted_status = $request->get('trusted_status');
         $search_word = $request->get('search_word');
-
-        $stat_user_type = $request->get('stat_user_type');
-        $stat_start_date = $request->get('stat_start_date');
-        $stat_to_date = $request->get('stat_to_date');
 
         $from_date = null;
         $to_date = null;
@@ -52,32 +46,22 @@ class DealerController extends Controller
             }
         }
 
+        $models = User::when(!is_null($from_date) && !is_null($to_date), function ($query) use ($from_date, $to_date) {
+                        $query->where('created_at', '>=', $from_date)
+                                ->whereDate('created_at', '<=', $to_date);
+                        })->where('user_type', Constants::DEALER);
 
-        if (!is_null($stat_user_type) && !is_null($stat_start_date) && !is_null($stat_to_date)) {
-            $stat_start_date = Carbon::parse($stat_start_date)->startOfDay();
-            $stat_to_date = Carbon::parse($stat_to_date)->startOfDay();
-            $models = User::where('created_at', '>=', $stat_start_date)
-                ->whereDate('created_at', '<=', $stat_to_date)
-                ->where('type', $stat_user_type);
-        }else{
-            $models = User::when(!is_null($from_date) && !is_null($to_date), function ($query) use ($from_date, $to_date) {
-                $query->where('created_at', '>=', $from_date)
-                    ->whereDate('created_at', '<=', $to_date);
-            })->where('type', Constants::SELLER);
-        }
-
-        $models = $models->when(! empty($status), function ($query) use ($status) {
-                $query->where('status', $status);
-            })->when(! empty($cp_status), function ($query) use ($cp_status) {
-                $query->where('controlpanel_status', $cp_status);
-
+        $models = $models->when(! empty($trusted_status), function ($query) use ($trusted_status) {
+                    if ($trusted_status == 'TRUSTED') {
+                        $query->where('is_trusted', 1);
+                    }elseif ($trusted_status == 'NOT_TRUSTED') {
+                        $query->where('is_trusted', 0);
+                    }
             })->when(! empty($search_word), function ($query) use ($search_word) {
                 $query->where(function ($query) use ($search_word) {
-                    $query->where('first_name', 'like', '%'.$search_word.'%')
-                        ->orWhere('last_name', 'like', '%'.$search_word.'%')
-                        ->orWhere('user_name', 'like', '%'.$search_word.'%')
-                        ->orWhere('store_name', 'like', '%'.$search_word.'%')
-                        ->orWhere('mobile', 'like', '%'.$search_word.'%');
+                    $query->where('full_name', 'like', '%'.$search_word.'%')
+                        ->orWhere('email', 'like', '%'.$search_word.'%')
+                        ->orWhere('phone_number', 'like', '%'.$search_word.'%');
                 });
             })->orderBy('id', 'DESC');
 
@@ -87,16 +71,13 @@ class DealerController extends Controller
                 return redirect()->back();
             }
 
-            ExcelManager::exportSellers($models);
+            ExcelManager::exportDealers($models);
             return redirect()->back();
         }else{
             $models = $models->paginate(9);
-            return view('cpanel.seller.index', [
-                'sellers' => $models,
-                'models_count' => $models->total(),
-                'countries' => SettingsManager::getCountriesAsArray(),
-                'brands' => AdminManager::getBrandsAsArray(),
-                'cities' => AdminManager::getCitiesAsArray(),
+            return view('cpanel.dealers.index', [
+                'models' => $models,
+                'trusted_statuses' => ['TRUSTED' => 'Trusted', 'NOT_TRUSTED' => 'Not Trusted'],
                 'years' => Constants::YEARS_LIST,
                 'months' => Constants::MONTHS_LIST,
                 'weeks' => Constants::WEEKS_LIST
@@ -109,6 +90,20 @@ class DealerController extends Controller
         $model = User::find($id);
         if ($model instanceof User) {
             $model->controlpanel_status = Constants::ACTIVE;
+            $model->save();
+        }
+
+        return redirect()->back();
+    }
+    public function enableTrusted($id): \Illuminate\Http\RedirectResponse
+    {
+        $model = User::find($id);
+        if ($model instanceof User) {
+            if ($model->is_trusted == 1){
+                $model->is_trusted = 0;
+            }else{
+                $model->is_trusted = 1;
+            }
             $model->save();
         }
 
@@ -133,7 +128,7 @@ class DealerController extends Controller
     {
         $model = User::find($id);
         if ($model instanceof User) {
-            return view('cpanel.seller.view', [
+            return view('cpanel.dealers.view', [
                 'model' => $model,
                 'years' => Constants::YEARS_LIST,
                 'months' => Constants::MONTHS_LIST,

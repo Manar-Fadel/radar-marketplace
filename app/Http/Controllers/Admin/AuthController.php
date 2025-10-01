@@ -16,9 +16,9 @@ class AuthController extends Controller
     public function index(Request $request): \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
     {
         if ($request->isMethod('POST')) {
-            $user = User::where('type', Constants::ADMIN)
+            $user = User::where('user_type', Constants::ADMIN)
                 ->where('email', $request->get('email'))
-                ->where('is_active', 1)
+                ->where('is_verified_admin', 1)
                 ->first();
             if (! $user || ! Hash::check($request->get('password'), $user->password)) {
                 return Redirect::back()->with(['error' => 'Unauthorised']);

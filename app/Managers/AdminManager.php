@@ -16,14 +16,10 @@ class AdminManager
     {
         return City::where('is_deleted', 0)->orderBy('id', 'ASC')->get();
     }
-    public static function uploadImageFile($file, $folder_name, $prefix = 'brand-'): string
+
+    public static function uploadImageFile($file, $folder_name)
     {
-        $safeName = $prefix.time().'.'.$file->getClientOriginalExtension();
-
-        $disk = Storage::disk('s3');
-        $disk->put($folder_name.$safeName, file_get_contents($file), 'public');
-
-        return $disk->url($folder_name.$safeName);
+        return $file->storeAs($folder_name . date('Y-m'), time() . '.' . $file->getClientOriginalExtension(), 'public');
     }
 
 

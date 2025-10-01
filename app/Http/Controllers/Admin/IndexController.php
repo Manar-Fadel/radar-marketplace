@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\FeeStatus;
 use App\Enums\OrderStatus;
-use App\Enums\ReviewStatus;
 use App\Http\Controllers\Controller;
-use App\Models\Settings\SystemLog;
+use App\Managers\Constants;
+use App\Models\Brand;
+use App\Models\CarModel;
+use App\Models\Offer;
+use App\Models\Order;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -14,25 +17,33 @@ class IndexController extends Controller
 {
     public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        $currentMonthText = Carbon::now()->format('M');
+        $dealers_count = User::where('user_type', Constants::DEALER)->count();
+        $bank_delegates_count = User::where('user_type', Constants::BANK_DELEGATE)->count();
+        $pending_orders_count = Order::where('status', Constants::PENDING)->count();
+        $accepted_orders_count = Order::where('status', Constants::ACCEPTED)->count();
+        $pending_offers_count = Offer::where('status', Constants::PENDING)->count();
+        $accepted_offers_count = Offer::where('status', Constants::ACCEPTED)->count();
+        $brands_count = Brand::count();
+        $models_count = CarModel::count();
 
         return view('cpanel.dashboard', [
-            'part_statuses' => OrderStatus::cases(),
-            'review_statuses' => ReviewStatus::cases(),
-            'fee_statuses' => FeeStatus::cases(),
-            'currentMonth' => $currentMonthText,
-            'years' => [2021, 2022, 2023, 2024, 2025, 2026],
-            'months' => ['01' => 'January', '02' => 'February', '03' => 'March', '04' => 'April', '05' => 'May', '06' => 'June', '07' => 'July', '08' => 'August', '09' => 'September', '10' => 'October', '11' => 'November', '12' => 'December'],
-            'weeks' => ['FIRST_WEEK' => 'First week', 'SECOND_WEEK' => 'Second Week', 'THIRD_WEEK' => 'Third Week', 'FOURTH_WEEK' => 'Fourth Week'],
+            'dealers_count' => $dealers_count,
+            'bank_delegates_count' => $bank_delegates_count,
+            'pending_orders_count' => $pending_orders_count,
+            'accepted_orders_count' => $accepted_orders_count,
+            'pending_offers_count' => $pending_offers_count,
+            'accepted_offers_count' => $accepted_offers_count,
+            'brands_count' => $brands_count,
+            'models_count' => $models_count,
         ]);
     }
 
     public function logs(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
         return view('cpanel.logs.index', [
-            'years' => [2021, 2022, 2023, 2024, 2025, 2026],
-            'months' => ['01' => 'January', '02' => 'February', '03' => 'March', '04' => 'April', '05' => 'May', '06' => 'June', '07' => 'July', '08' => 'August', '09' => 'September', '10' => 'October', '11' => 'November', '12' => 'December'],
-            'weeks' => ['FIRST_WEEK' => 'First week', 'SECOND_WEEK' => 'Second Week', 'THIRD_WEEK' => 'Third Week', 'FOURTH_WEEK' => 'Fourth Week']
-        ]);
+            'years' => Constants::YEARS_LIST,
+            'months' => Constants::MONTHS_LIST,
+            'weeks' => Constants::WEEKS_LIST
+            ]);
     }
 }

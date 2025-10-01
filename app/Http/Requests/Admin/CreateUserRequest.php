@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use App\Managers\Constants;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CreateUserRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class CreateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**

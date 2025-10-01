@@ -43,117 +43,6 @@
 
                 <?php $user = auth()->user(); ?>
 
-                @if($user->type == "ADMIN")
-                <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
-                    <a class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       tabindex="0" href="{{ route("admin.advertisements.index") }}">
-                         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                          <i class="ki-filled ki-slider text-lg">
-                          </i>
-                         </span>
-                        <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
-                          Advertisements
-                        </span>
-                    </a>
-                </div>
-
-                <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
-                    <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]" tabindex="0">
-                     <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                      <i class="ki-filled ki-chart-line-down text-lg">
-                      </i>
-                     </span>
-                        <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
-                        Statistics (Insights)
-                    </span>
-                        <span class="menu-arrow text-gray-400 w-[20px] shrink-0 justify-end ml-1 mr-[-10px]">
-                      <i class="ki-filled ki-plus text-2xs menu-item-show:hidden">
-                      </i>
-                      <i class="ki-filled ki-minus text-2xs hidden menu-item-show:inline-flex">
-                      </i>
-                    </span>
-                    </div>
-                    <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.statistics.number-insights") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                    Numeric Count Insights
-                               </span>
-                            </a>
-                        </div>
-
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.statistics.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                    Orders & Offers Charts
-                               </span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.statistics.users") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                    Customers & Sellers Charts
-                               </span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.statistics.cities") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                    Cities Orders & Sellers Charts
-                               </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
-                    <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]" tabindex="0">
-                         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                          <i class="ki-filled ki-car text-lg">
-                          </i>
-                         </span>
-                        <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
-                            Countries & Cities
-                        </span>
-                        <span class="menu-arrow text-gray-400 w-[20px] shrink-0 justify-end ml-1 mr-[-10px]">
-                          <i class="ki-filled ki-plus text-2xs menu-item-show:hidden">
-                          </i>
-                          <i class="ki-filled ki-minus text-2xs hidden menu-item-show:inline-flex">
-                          </i>
-                        </span>
-                    </div>
-                    <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.countries.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Countries & Cities
-                               </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
                     <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]" tabindex="0">
                          <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
@@ -178,56 +67,12 @@
                                    class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
                                </span>
                                 <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Brands & Models
+                                Brands
                                </span>
                             </a>
                         </div>
                     </div>
-
-                    <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.parts.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Car Parts
-                               </span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.years.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Years
-                               </span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.colors.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Colors
-                               </span>
-                            </a>
-                        </div>
-                    </div>
-
                 </div>
-                @endif
 
                 <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
                     <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]" tabindex="0">
@@ -260,43 +105,59 @@
 
                         <div class="menu-item">
                             <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.sellers.index") }}" tabindex="0">
+                               href="{{ route("admin.dealers.index") }}" tabindex="0">
                                <span
                                    class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
                                </span>
                                 <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Service Providers
+                                Dealers
                                </span>
                             </a>
                         </div>
-
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.referral.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Referred Accounts
-                               </span>
-                            </a>
-                        </div>
-
-                        @if($user->type == "ADMIN")
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.admins.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Tashleeh Admins
-                               </span>
-                            </a>
-                        </div>
-                        @endif
                     </div>
                 </div>
+
+                <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
+                    <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]" tabindex="0">
+                         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                          <i class="ki-filled ki-data text-lg">
+                          </i>
+                         </span>
+                        <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
+                            Our Cars
+                        </span>
+                        <span class="menu-arrow text-gray-400 w-[20px] shrink-0 justify-end ml-1 mr-[-10px]">
+                          <i class="ki-filled ki-plus text-2xs menu-item-show:hidden">
+                          </i>
+                          <i class="ki-filled ki-minus text-2xs hidden menu-item-show:inline-flex">
+                          </i>
+                        </span>
+                    </div>
+                    <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
+                        <div class="menu-item">
+                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
+                               href="{{ route("admin.cars.slider") }}" tabindex="0">
+                               <span
+                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
+                               </span>
+                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
+                                Slider Cars
+                               </span>
+                            </a>
+
+                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
+                               href="{{ route("admin.cars.index") }}" tabindex="0">
+                               <span
+                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
+                               </span>
+                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
+                                All Cars in Stock
+                               </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
                     <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]" tabindex="0">
@@ -322,7 +183,7 @@
                                    class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
                                </span>
                                 <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Parts Orders by Date
+                                Orders by Date
                                </span>
                             </a>
 
@@ -332,224 +193,46 @@
                                    class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
                                </span>
                                 <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Parts Offers by Date
-                               </span>
-                            </a>
-
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.offers.requested") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                    Parts Offers Need Attachment
-                               </span>
-                            </a>
-
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.vehicle-orders.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                    Sell Vehicles Orders by Date
-                               </span>
-                            </a>
-
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.vehicle-offers.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                    Sell Vehicles Offers by Date
-                               </span>
-                            </a>
-
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.addresses.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Customer Addresses
+                                Offers by Date
                                </span>
                             </a>
                         </div>
                     </div>
                 </div>
 
+                <div class="menu-item pt-2.25 pb-px">
+                    <span class="menu-heading uppercase text-2sm font-medium text-gray-500 pl-[10px] pr-[10px]">
+                     Notifications
+                    </span>
+                </div>
                 <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
                     <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]" tabindex="0">
-                         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                          <i class="ki-filled ki-save-deposit text-lg">
-                          </i>
-                         </span>
-                        <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
-                            Payments & Wallet
-                        </span>
-                        <span class="menu-arrow text-gray-400 w-[20px] shrink-0 justify-end ml-1 mr-[-10px]">
-                          <i class="ki-filled ki-plus text-2xs menu-item-show:hidden">
-                          </i>
-                          <i class="ki-filled ki-minus text-2xs hidden menu-item-show:inline-flex">
-                          </i>
-                        </span>
+                 <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
+                  <i class="ki-filled ki-notification text-lg">
+                  </i>
+                 </span>
+                 <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
+                    System Notifications
+                 </span>
+                 <span class="menu-arrow text-gray-400 w-[20px] shrink-0 justify-end ml-1 mr-[-10px]">
+                  <i class="ki-filled ki-plus text-2xs menu-item-show:hidden">
+                  </i>
+                  <i class="ki-filled ki-minus text-2xs hidden menu-item-show:inline-flex">
+                  </i>
+                </span>
                     </div>
                     <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
                         <div class="menu-item">
                             <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.payments.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
+                               href="{{ route("admin.notifications.index") }}" tabindex="0">
+                                <span class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
+                                </span>
                                 <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Payments (Tap Gateway)
-                               </span>
+                                    All Sent Notifications Logs
+                                </span>
                             </a>
                         </div>
                     </div>
-
-                    <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
-                        <div class="menu-item">
-                            <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                               href="{{ route("admin.wallet.index") }}" tabindex="0">
-                               <span
-                                   class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                               </span>
-                                <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                Users Wallets
-                               </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu-item">
-                    <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       href="{{ route("admin.coupons.index") }}"
-                       tabindex="0">
-                         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                          <i class="ki-filled ki-discount text-lg">
-                          </i>
-                         </span>
-                        <span class="menu-title text-sm font-medium text-gray-800">
-                            Discount Codes (Coupons)
-                        </span>
-                    </a>
-                </div>
-
-                <div class="menu-item pt-2.25 pb-px">
-                    <span class="menu-heading uppercase text-2sm font-medium text-gray-500 pl-[10px] pr-[10px]">
-                      Seller Garage
-                    </span>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       href="{{ route("admin.garage-parts.index") }}"
-                       tabindex="0">
-                         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                          <i class="ki-filled ki-car text-lg">
-                          </i>
-                         </span>
-                        <span class="menu-title text-sm font-medium text-gray-800">
-                          Seller Garage Parts
-                         </span>
-                    </a>
-                </div>
-
-                <div class="menu-item pt-2.25 pb-px">
-                    <span class="menu-heading uppercase text-2sm font-medium text-gray-500 pl-[10px] pr-[10px]">
-                      Customer Care Notes
-                    </span>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       href="{{ route("admin.customer-care-notes.index") }}"
-                       tabindex="0">
-                         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                          <i class="ki-filled ki-notepad text-lg">
-                          </i>
-                         </span>
-                        <span class="menu-title text-sm font-medium text-gray-800">
-                           Customer Care Notes
-                         </span>
-                    </a>
-                </div>
-
-                @if($user->type == "ADMIN")
-                <div class="menu-item pt-2.25 pb-px">
-                    <span class="menu-heading uppercase text-2sm font-medium text-gray-500 pl-[10px] pr-[10px]">
-                     Notifications & SMS
-                    </span>
-                </div>
-                    <div class="menu-item" data-menu-item-toggle="accordion" data-menu-item-trigger="click">
-                        <div class="menu-link flex items-center grow cursor-pointer border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]" tabindex="0">
-                     <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                      <i class="ki-filled ki-notification text-lg">
-                      </i>
-                     </span>
-                            <span class="menu-title text-sm font-medium text-gray-800 menu-item-active:text-primary menu-link-hover:!text-primary">
-                        System Notifications
-                    </span>
-                            <span class="menu-arrow text-gray-400 w-[20px] shrink-0 justify-end ml-1 mr-[-10px]">
-                      <i class="ki-filled ki-plus text-2xs menu-item-show:hidden">
-                      </i>
-                      <i class="ki-filled ki-minus text-2xs hidden menu-item-show:inline-flex">
-                      </i>
-                    </span>
-                        </div>
-                        <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
-                            <div class="menu-item">
-                                <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                                   href="{{ route("admin.notifications.index") }}" tabindex="0">
-                                    <span class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                                    </span>
-                                    <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                        All Sent Notifications Logs
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
-                            <div class="menu-item">
-                                <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                                   href="{{ route("admin.notifications.scheduled") }}" tabindex="0">
-                                    <span class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                                    </span>
-                                    <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                        Admin Scheduled Notifications
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="menu-accordion gap-0.5 pl-[10px] relative before:absolute before:left-[20px] before:top-0 before:bottom-0 before:border-l before:border-gray-200">
-                            <div class="menu-item">
-                                <a class="menu-link border border-transparent items-center grow menu-item-active:bg-secondary-active dark:menu-item-active:bg-coal-300 dark:menu-item-active:border-gray-100 menu-item-active:rounded-lg hover:bg-secondary-active dark:hover:bg-coal-300 dark:hover:border-gray-100 hover:rounded-lg gap-[14px] pl-[10px] pr-[10px] py-[8px]"
-                                   href="{{ route("admin.fcm.index") }}" tabindex="0">
-                                   <span class="menu-bullet flex w-[6px] relative before:absolute before:top-0 before:size-[6px] before:rounded-full before:-translate-x-1/2 before:-translate-y-1/2 menu-item-active:before:bg-primary menu-item-hover:before:bg-primary">
-                                   </span>
-                                    <span class="menu-title text-2sm font-normal text-gray-800 menu-item-active:text-primary menu-item-active:font-semibold menu-link-hover:!text-primary">
-                                        FCM Users Tokens
-                                   </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="menu-item">
-                    <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       href="{{ route("admin.sms.verifications") }}"
-                       tabindex="0">
-                         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                          <i class="ki-filled ki-sms text-lg">
-                          </i>
-                         </span>
-                        <span class="menu-title text-sm font-medium text-gray-800">
-                          Verifications SMS
-                         </span>
-                    </a>
                 </div>
 
                 <div class="menu-item pt-2.25 pb-px">
@@ -571,64 +254,12 @@
                     </a>
                 </div>
 
-                <div class="menu-item">
-                    <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       href="{{ route("admin.omnix-logs.index") }}"
-                       tabindex="0">
-                     <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                      <i class="ki-filled ki-call text-lg">
-                      </i>
-                     </span>
-                        <span class="menu-title text-sm font-medium text-gray-800">
-                      Omnix Logs
-                     </span>
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       href="{{ route("admin.omnix-templates.index") }}"
-                       tabindex="0">
-                 <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                  <i class="ki-filled ki-call text-lg">
-                  </i>
-                 </span>
-                        <span class="menu-title text-sm font-medium text-gray-800">
-                  Omnix WhatsApp Templates
-                 </span>
-                    </a>
-                </div>
-
                 <div class="menu-item pt-2.25 pb-px">
                     <span class="menu-heading uppercase text-2sm font-medium text-gray-500 pl-[10px] pr-[10px]">
                      Settings
                     </span>
                 </div>
-                <div class="menu-item">
-                    <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       href="{{ route("admin.need-status.index") }}"
-                       tabindex="0">
-                         <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                          <i class="ki-filled ki-price-tag text-lg">
-                          </i>
-                         </span>
-                        <span class="menu-title text-sm font-medium text-gray-800">
-                          Need Status Types
-                         </span>
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       href="{{ route("admin.sellers.points.index") }}"
-                       tabindex="0">
-                     <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                      <i class="ki-filled ki-pointers text-lg">
-                      </i>
-                     </span>
-                        <span class="menu-title text-sm font-medium text-gray-800">
-                            Points Types
-                        </span>
-                    </a>
-                </div>
+
                 <div class="menu-item">
                     <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
                          href="{{ route("admin.settings.index") }}"
@@ -642,20 +273,6 @@
                          </span>
                     </a>
                 </div>
-                <div class="menu-item">
-                    <a class="menu-label border border-transparent gap-[10px] pl-[10px] pr-[10px] py-[6px]"
-                       href="{{ route("admin.jobs.index") }}"
-                       tabindex="0">
-                     <span class="menu-icon items-start text-gray-500 dark:text-gray-400 w-[20px]">
-                      <i class="ki-filled ki-setting text-lg">
-                      </i>
-                     </span>
-                        <span class="menu-title text-sm font-medium text-gray-800">
-                            Queued Jobs
-                     </span>
-                    </a>
-                </div>
-                @endif
 
             </div>
             <!-- End of Sidebar Menu -->

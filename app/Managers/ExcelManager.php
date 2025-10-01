@@ -12,4 +12,10 @@ class ExcelManager
     {
 
     }
+    public static function exportDealers($dealers)
+    {
+
+    }
+
+
 }

@@ -33,5 +33,5 @@
 
 @push('scripts')
     <script src="https://unpkg.com/vue@3"></script>
-    <script src="{{ asset("assets/vuejs/orders-code.js") }}"></script>
+    <script src="{{ asset("assets/cpanel/vuejs/orders-code.js") }}"></script>
 @endpush

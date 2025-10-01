@@ -15,17 +15,20 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Admin
-        User::create([
-            'full_name' => 'Admin User',
-            'email' => 'manar@example.com',
-            'password' => Hash::make('112233'),
-            'phone_number' => '0500000000',
-            'user_type' => Constants::ADMIN,
-            'is_verified_email' => true,
-            'is_verified_admin' => true,
-            'is_trusted' => true,
-        ]);
+        $admin = User::where('email', 'manar@example.com')->first();
+        if (!$admin instanceof User) {
+            User::create([
+                'full_name' => 'Admin User',
+                'email' => 'manar@example.com',
+                'password' => Hash::make('112233'),
+                'phone_number' => '0500000000',
+                'user_type' => Constants::ADMIN,
+                'is_verified_email' => true,
+                'is_verified_admin' => true,
+                'is_trusted' => true,
+            ]);
+        }
+
 
         // Bank Delegates
         User::factory()->count(5)->create([

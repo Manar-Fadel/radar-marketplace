@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\URL;
 
 class Brand extends Model
 {
@@ -29,7 +30,7 @@ class Brand extends Model
                 return $value;
             }else{
                 if(strpos($value, "uploads/") !== false){
-                    return asset("brands/$value");
+                    return URL::asset("storage/".$value);
 
                 }else{
                     return $value;
@@ -41,6 +42,10 @@ class Brand extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'brand_id');
+    }
+    public function models(): HasMany
+    {
+        return $this->hasMany(CarModel::class, 'brand_id');
     }
 
 }
