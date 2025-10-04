@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\OfferStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CreateDealerRequest;
+use App\Http\Requests\Cpanel\AddCustomerRequest;
+use App\Managers\AdminManager;
 use App\Managers\Constants;
 use App\Managers\ExcelManager;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class DealerController extends Controller
@@ -123,7 +127,31 @@ class DealerController extends Controller
 
         return redirect()->back();
     }
+    public function store(CreateDealerRequest $request): \Illuminate\Http\RedirectResponse
+    {
+        $model = new User();
+        $model->user_type = Constants::DEALER;
+        $model->full_name = $request->get('full_name');
+        $model->email = $request->get('email');
+        $model->password = Hash::make($request->get('password'));
+        $model->phone_number = $request->get('phone_number');
+        $model->id_number = $request->get('id_number');
+        $model->is_trusted =  $request->get('is_trusted') == 1 ? 1 : 0;
+        $model->is_verified_email = 1;
+        $model->is_verified_admin = 1;
 
+        if ($request->has('showroom_doc')) {
+            $file = $request->file('showroom_doc');
+            $doc_name = AdminManager::uploadImageFile($file, 'uploads/dealers/showroom_docs/');
+            $model->showroom_doc = $doc_name;
+        }
+
+        if ($model->save()) {
+            Session::flash('message', 'Seller added successfully');
+        }
+
+        return redirect()->back();
+    }
     public function view($id): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
     {
         $model = User::find($id);

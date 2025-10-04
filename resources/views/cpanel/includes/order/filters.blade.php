@@ -13,7 +13,7 @@
         <select name="brand_id" id="brand_id"
                 v-model="brand_id" :name="brand_id" :id="brand_id" class="select select-sm w-28">
             <option value="">
-                Review Status
+                Brand
             </option>
             @foreach($brands as $key => $brand)
                 <option value="{{ $key }}">

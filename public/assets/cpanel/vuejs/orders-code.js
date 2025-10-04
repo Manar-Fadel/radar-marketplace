@@ -80,45 +80,8 @@ const app = Vue.createApp({
                 }
             );
             this.response = await response.json();
-            this.lists = this.response.lists;
+            this.lists = this.response.data.lists;
             this.loading = false;
-        },
-        async getYears () {
-            const response = await fetch(
-                "/api/admin/years",
-                {
-                    method: 'GET',
-                    headers: this.headers,
-                }
-            );
-            this.response = await response.json();
-            this.years = this.response.years;
-        },
-        async getBrands () {
-            const response = await fetch(
-                "/api/admin/brands",
-                {
-                    method: 'GET',
-                    headers: this.headers,
-                }
-            );
-            this.response = await response.json();
-            this.brands = this.response.brands;
-        },
-        onBrandChange:function(event){
-            console.log(event.target.value);
-            this.getModels(event.target.value);
-        },
-        async getModels (brand_id) {
-            const response = await fetch(
-                "/api/admin/models/"+brand_id,
-                {
-                    method: 'GET',
-                    headers: this.headers,
-                }
-            );
-            this.response = await response.json();
-            this.models = this.response.models;
         },
         async changeStatus (row, key, index) {
             this.changeStatusModal = row;
@@ -235,13 +198,10 @@ const app = Vue.createApp({
         },
         viewModal (order) {
             this.offersLoading = true;
-            this.logsLoading = true;
             this.offers = [];
-            this.order_logs = [];
             this.order_images = [];
 
             this.getOrderImages(order.id);
-            this.getOrderLogs(order.id);
             this.getOrderOffers(order.id);
         }
     }

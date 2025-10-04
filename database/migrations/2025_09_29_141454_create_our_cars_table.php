@@ -27,9 +27,9 @@ return new class extends Migration
             $table->decimal('price', 12, 2)->index();
 
             $table->boolean('is_slider_banner')->nullable()->default(false);
-            $table->string('slider_image_url')->nullable();
+            $table->text('slider_image_url')->nullable();
 
-            $table->string('main_image_url');
+            $table->text('main_image_url');
             $table->timestamps();
             $table->softDeletes();
         });

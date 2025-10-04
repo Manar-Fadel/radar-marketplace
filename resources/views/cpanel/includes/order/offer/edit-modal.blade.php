@@ -14,50 +14,6 @@
         <div class="modal-body p-0 pb-5">
             <div class="card-body flex flex-col gap-5 p-10">
                 @csrf
-                <div class="flex flex-col gap-5">
-                    <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                        <label class="form-label max-w-56">
-                            State
-                        </label>
-                        <select class="select" v-model="editModal.state"
-                                :name="editModal.state" :id="editModal.state">
-                            <option value=""> -- Choose -- </option>
-                            @foreach($state_options as $state_option)
-                            <option value="{{ $state_option->name }}">{{ $state_option->value }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-5">
-                    <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                        <label class="form-label max-w-56">
-                            Condition State
-                        </label>
-                        <select class="select" v-model="editModal.condition_status"
-                                :name="editModal.condition_status" :id="editModal.condition_status">
-                            <option value=""> -- Choose -- </option>
-                            @foreach($condition_options as $condition_option)
-                                <option value="{{ $condition_option->name }}">{{ $condition_option->value }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-5">
-                    <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                        <label class="form-label max-w-56">
-                            Condition State
-                        </label>
-                        <select class="select" v-model="editModal.original_status"
-                                :name="editModal.original_status" :id="editModal.original_status">
-                            <option value=""> -- Choose -- </option>
-                            @foreach($original_statuses as $original_status)
-                                <option value="{{ $original_status->name }}">{{ $original_status->value }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
 
                 <div class="flex flex-col gap-5">
                     <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
@@ -72,57 +28,17 @@
                 <div class="flex flex-col gap-5">
                     <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
                         <label class="form-label max-w-56">
-                            Delivery Price
+                            Description
                         </label>
-                        <input v-model="editModal.delivery_fees" :name="editModal.delivery_fees" :id="editModal.delivery_fees"
-                               placeholder="Offer delivery_fees" type="number" class="input">
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-5">
-                    <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                        <label class="form-label max-w-56">
-                            Kilometres
-                        </label>
-                        <input v-model="editModal.kilometres" :name="editModal.kilometres" :id="editModal.kilometres"
-                               placeholder="Offer kilometres" type="number" class="input">
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-5">
-                    <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                        <label class="form-label max-w-56">
-                            Guarantee Days
-                        </label>
-                        <input v-model="editModal.guarantee_days" :name="editModal.guarantee_days" :id="editModal.guarantee_days"
-                               placeholder="Offer guarantee days" type="number" class="input">
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-5">
-                    <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                        <label class="form-label max-w-56">
-                            Seller Note
-                        </label>
-                        <input v-model="editModal.note" :name="editModal.note" :id="editModal.note"
-                               placeholder="Seller note" type="text" class="input">
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-5">
-                    <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
-                        <label class="form-label max-w-56">
-                            Super Seller Note
-                        </label>
-                        <input v-model="editModal.tracking_note" :name="editModal.tracking_note" :id="editModal.tracking_note"
-                               placeholder="Super seller note" type="text" class="input">
+                        <input v-model="editModal.description" :name="editModal.description" :id="editModal.description"
+                               placeholder="Offer description" type="text" class="input">
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-5">
                     <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
                         <button @click="storeOffer(editModal, key, index)" class="btn btn-success">
-                            update
+                            Update
                         </button>
                     </div>
                 </div>

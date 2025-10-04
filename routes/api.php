@@ -29,13 +29,15 @@ Route::prefix('auth')->group(function () {
 });
 
 // ✅ Brands
-Route::get('/brands', [BrandController::class, 'index']);
+Route::prefix('web')->group(function () {
+    Route::get('/brands', [BrandController::class, 'index']);
+    Route::get('/save-order', [OrderController::class, 'saveOrder']);
+
+});
 
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    // ✅ Orders
-    Route::apiResource('orders', OrderController::class);
     Route::post('/orders/{order}/accept-offer', [OrderController::class, 'acceptOffer']);
 
     // ✅ Offers
@@ -48,15 +50,29 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     /***********************     ADMIN          ***************************/
-    Route::middleware(['admin'])->prefix('admin')->group(function () {
+    Route::prefix('admin')->group(function () {
         Route::post('/brands', [BrandController::class, 'store']);
         Route::post('/brands/{id}', [BrandController::class, 'update']);
         Route::delete('/brands/{id}', [BrandController::class, 'destroy']);
 
         Route::apiResource('users', AdminUserController::class);
-        Route::apiResource('orders', AdminOrderController::class);
-        Route::apiResource('offers', AdminOfferController::class);
-        Route::post('/offers/dealer/{id}', [AdminOfferController::class, 'dealerOffers']);
+
+        Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
+            Route::get('/', [AdminOrderController::class, 'index'])->name('index');
+            Route::post('/update/{id}', [AdminOrderController::class, 'update'])->name('update');
+            Route::post('/change-status/{id}', [AdminOrderController::class, 'changeStatus'])->name('changeStatus');
+            Route::get('/delete/{id}', [AdminOrderController::class, 'delete'])->name('delete');
+            Route::get('/delete-image/{id}', [AdminOrderController::class, 'deleteImage'])->name('deleteImage');
+            Route::get('/images/{id}', [AdminOrderController::class, 'orderImages'])->name('orderImages');
+            Route::get('/offers/{id}', [AdminOrderController::class, 'offers'])->name('offers');
+        });
+
+        Route::group(['prefix' => 'offers', 'as' => 'offers.'], function () {
+            Route::get('/', [AdminOfferController::class, 'index'])->name('index');
+            Route::get('/delete/{id}', [AdminOfferController::class, 'delete'])->name('delete');
+            Route::post('/update/{id}', [AdminOfferController::class, 'update'])->name('update');
+        });
+
 
         Route::apiResource('brands', AdminBrandController::class);
         Route::get('/statistics', [AdminStatisticsController::class, 'index']);

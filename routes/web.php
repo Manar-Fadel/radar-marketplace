@@ -19,7 +19,6 @@ Route::post('/contact-us', [HomeController::class, 'contactUs'])->name('contact-
 
 Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
 Route::get('/most-sold', [HomeController::class, 'mostSold'])->name('most-sold');
-Route::get('/order-now', [HomeController::class, 'orderNow'])->name('order-now');
 
 Route::group(['prefix' => 'cars', 'as' => 'cars.'], function () {
     Route::get('/', [OurCarsController::class, 'index'])->name('index');
@@ -28,6 +27,30 @@ Route::group(['prefix' => 'cars', 'as' => 'cars.'], function () {
 });
 
 Route::get('/login', [\App\Http\Controllers\web\AuthController::class, 'index'])->name('login');
+Route::post('/login', [\App\Http\Controllers\web\AuthController::class, 'index'])->name('login');
+Route::get('/register', [\App\Http\Controllers\web\AuthController::class, 'register'])->name('register');
+Route::post('/register', [\App\Http\Controllers\web\AuthController::class, 'register'])->name('register');
+
+
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/order-now', [\App\Http\Controllers\web\OrderController::class, 'orderNow'])->name('order-now');
+    Route::group(['prefix' => 'my-orders', 'as' => 'my-orders.'], function () {
+        Route::get('/', [\App\Http\Controllers\web\OrderController::class, 'index'])->name('index');
+        Route::get('/{id}', [\App\Http\Controllers\web\OrderController::class, 'view'])->name('view');
+
+    });
+
+     Route::group(['prefix' => 'sell-cars', 'as' => 'sell-cars.'], function () {
+         Route::get('/', [\App\Http\Controllers\web\OfferController::class, 'index'])->name('index');
+         Route::get('/{id}/send-offer', [\App\Http\Controllers\web\OfferController::class, 'sendOffer'])->name('send-offer');
+
+     });
+
+
+
+    Route::get('/logout', [\App\Http\Controllers\web\AuthController::class, 'logout'])->name('logout');
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -57,7 +80,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         Route::group(['prefix' => 'offers', 'as' => 'offers.'], function () {
             Route::get('/', [OfferController::class, 'index'])->name('index');
-            Route::get('/export', [OfferController::class, 'export'])->name('export');
         });
 
         Route::group(['prefix' => 'brands', 'as' => 'brands.'], function () {
@@ -70,7 +92,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::post('/store-model', [BrandController::class, 'storeModel'])->name('store-model');
         });
 
-        Route::group(['prefix' => 'customers', 'as' => 'customers.'], function () {
+        Route::group(['prefix' => 'bank-delegates', 'as' => 'bank-delegates.'], function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
             Route::post('/store', [UserController::class, 'store'])->name('store');
             Route::get('/view/{id}', [UserController::class, 'view'])->name('view');
@@ -78,7 +100,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         });
         Route::group(['prefix' => 'dealers', 'as' => 'dealers.'], function () {
             Route::get('/', [DealerController::class, 'index'])->name('index');
-            Route::get('/enable-trusted', [DealerController::class, 'enableTrusted'])->name('enable-trusted');
+            Route::get('/enable-trusted/{id}', [DealerController::class, 'enableTrusted'])->name('enable-trusted');
             Route::post('/store', [DealerController::class, 'store'])->name('store');
             Route::get('/view/{id}', [DealerController::class, 'view'])->name('view');
             Route::get('/activate/{id}', [DealerController::class, 'activate'])->name('activate');

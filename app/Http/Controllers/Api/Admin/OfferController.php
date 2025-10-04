@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdateOfferRequest;
 use App\Http\Resources\OfferResource;
 use App\Models\Offer;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 class OfferController extends Controller
@@ -18,9 +20,6 @@ class OfferController extends Controller
         $month = ! empty($request->get('month')) ? $request->get('month') : Carbon::now()->month;
         $search_word = $request->get('search_word', '');
         $offer_status = $request->get('offer_status', '');
-
-        $stat_start_date = $request->get('stat_start_date');
-        $stat_to_date = $request->get('stat_to_date');
 
         if (empty($request->get('year')) && empty($request->get('month'))) {
             $to_date = Carbon::now();
@@ -48,25 +47,15 @@ class OfferController extends Controller
             $to_date = Carbon::parse($from_date)->endOfMonth();
         }
 
-        if (!is_null($stat_start_date) && !is_null($stat_to_date)) {
-            $stat_start_date = Carbon::parse($stat_start_date)->startOfDay();
-            $stat_to_date = Carbon::parse($stat_to_date)->startOfDay();
-            $offers = Offer::where('created_at', '>=', $stat_start_date)
-                ->where('created_at', '<=', $stat_to_date);
-        }else{
-            $offers = Offer::whereDate('created_at', '>=', $from_date)
-                ->whereDate('created_at', '<=', $to_date);
-        }
-
-
-        $offers = $offers->when(! empty($search_word), function ($query) use ($search_word) {
+        $offers = Offer::whereDate('created_at', '>=', $from_date)
+            ->whereDate('created_at', '<=', $to_date)
+            ->when(! empty($search_word), function ($query) use ($search_word) {
                 return $query->where('offer_number', 'like', '%'.$search_word.'%')
                     ->orWhere('description', 'like', '%'.$search_word.'%');
             })
             ->when(! empty($offer_status), function ($query) use ($offer_status) {
                 return $query->where('status', $offer_status);
             })
-            ->has('part')
             ->orderBy('id', 'DESC')
             ->get()
             ->groupBy(function ($item, $key) {
@@ -83,7 +72,6 @@ class OfferController extends Controller
             'lists' => $data,
         ]);
     }
-
     public function dealerOffers($id, Request $request): \Illuminate\Http\JsonResponse
     {
         $year = ! empty($request->get('year')) ? $request->get('year') : Carbon::now()->year;
@@ -126,27 +114,48 @@ class OfferController extends Controller
         ]);
     }
 
-    public function show($id): JsonResponse
+    public function update($id, UpdateOfferRequest $request): \Illuminate\Http\JsonResponse
     {
-        return response()->json(Offer::with('user', 'order')->findOrFail($id));
-    }
+        $offer = Offer::find($id);
+        if (! $offer instanceof Offer){
+            return Response::json([
+                'status' => false,
+                'message' => 'Offer not found',
+            ]);
+        }
 
-    public function update(Request $request, $id): JsonResponse
-    {
-        $offer = Offer::findOrFail($id);
+        $offer->description = $request->get('description');
+        $offer->price = $request->get('price');
+        if($offer->save()) {
+            return Response::json([
+                'status' => true,
+                'message' => 'Offer updated successfully',
+                'offer' => new OfferResource($offer),
 
-        $validated = $request->validate([
-            'status' => 'required|in:active,cancelled,accepted,rejected',
+            ]);
+        }
+
+        return Response::json([
+            'status' => false,
+            'message' => 'Error in updating offer',
         ]);
-
-        $offer->update($validated);
-
-        return response()->json(['message' => 'تم تحديث العرض', 'offer' => $offer]);
     }
-
-    public function destroy($id): JsonResponse
+    public function delete($id): \Illuminate\Http\JsonResponse
     {
-        Offer::findOrFail($id)->delete();
-        return response()->json(['message' => 'تم حذف العرض']);
+        $offer = Offer::find($id);
+        if ($offer instanceof Offer) {
+            $offer->images()->delete();
+            $offer->delete();
+
+            return Response::json([
+                'status' => true,
+                'message' => 'Offer deleted successfully',
+            ]);
+        }
+
+        return Response::json([
+            'status' => false,
+            'message' => 'error in deleting offer',
+        ]);
     }
 }

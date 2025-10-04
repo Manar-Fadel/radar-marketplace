@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ChangeOrderStatusRequest;
+use App\Http\Resources\OfferResource;
+use App\Http\Resources\OrderImageResource;
 use App\Http\Resources\OrderResource;
+use App\Managers\Constants;
+use App\Models\Offer;
 use App\Models\Order;
+use App\Models\OrderImage;
 use Carbon\Carbon;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 class OrderController extends Controller
@@ -83,43 +89,157 @@ class OrderController extends Controller
             ]
         ]);
     }
-
-    public function show($id): JsonResponse
+    public function userOrders($id, Request $request): \Illuminate\Http\JsonResponse
     {
-        $order = Order::with('user', 'brand', 'offers')->findOrFail($id);
-        return response()->json([
+
+        $search_word = $request->get('search_word');
+        $brand_id = $request->get('brand_id');
+
+        $models = Order::where('user_id', $id)
+                        ->when(! empty($search_word), function ($query) use ($search_word) {
+                            return $query->where('order_number', 'like', '%'.$search_word.'%')
+                                ->orWhere('description', 'like', '%'.$search_word.'%');
+                        })->when(! empty($brand_id), function ($query) use ($brand_id) {
+                            return $query->where('brand_id', $brand_id);
+                        })
+                    ->withTrashed()
+                    ->orderBy('id', 'DESC')
+                    ->paginate(10);
+
+        return Response::json([
             'status' => true,
             'data' => [
-                'order' => new OrderResource($order),
-            ]
+                "total" => $models->total(),
+                "per_page" => $models->perPage(),
+                "next_page_url" => $models->nextPageUrl(),
+                "prev_page_url" => $models->previousPageUrl(),
+                'orders' => OrderResource::collection($models)
+            ],
         ]);
     }
-
-    public function update(Request $request, $id): JsonResponse
+    public function offers($id): \Illuminate\Http\JsonResponse
     {
-        $order = Order::findOrFail($id);
+        $offers = Offer::where('order_id', $id)->orderBy('id', 'DESC')->get();
 
-        $validated = $request->validate([
-            'status' => 'required|in:active,accepted,cancelled,completed',
+        return Response::json([
+            'status' => true,
+            'offers' => OfferResource::collection($offers),
+        ]);
+    }
+    public function changeStatus($id, ChangeOrderStatusRequest $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+            DB::beginTransaction();
+
+            $model = Order::find($id);
+            if (!$model instanceof Order) {
+                return Response::json([
+                    'status' => false,
+                    'message' => 'Order not found',
+                ]);
+            }
+
+            if (in_array($request->get('status'), [Constants::ACCEPTED])) {
+                $offer = Offer::find($request->get('offer_id'));
+                if (!$offer instanceof Offer) {
+                    return Response::json([
+                        'status' => false,
+                        'message' => 'Offer not found',
+                    ]);
+                }
+                $offer->status = $request->get('status');
+                if ($offer->save()) {
+                    $model->confirmed_offer_id = $offer->id;
+                    $model->confirmed_dealer_id = $offer->user_id;
+                    $model->status = $request->get('status');
+                    $model->save();
+                }
+            }
+
+            $model->status = $request->get('status');
+            if ($model->save()) {
+                return Response::json([
+                    'status' => true,
+                    'message' => 'Order updated successfully',
+                    'order' => new OrderResource($model),
+                ]);
+            }
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+        }
+        return Response::json([
+            'status' => false,
+            'message' => 'Error in saving order',
+        ]);
+    }
+    public function delete($id): \Illuminate\Http\JsonResponse
+    {
+        try {
+            DB::beginTransaction();
+
+            $model = Order::find($id);
+            if ($model instanceof Order) {
+
+                foreach ($model->offers as $offer) {
+                    $offer->images()->delete();
+                    $offer->delete();
+                }
+
+                $model->images()->delete();
+                $model->delete();
+                DB::commit();
+
+                return Response::json([
+                    'status' => true,
+                    'message' => 'Order deleted successfully',
+                ]);
+            }
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+        }
+
+        return Response::json([
+            'status' => false,
+            'message' => 'Error in deleting Order',
+        ]);
+    }
+    public function deleteImage($id): \Illuminate\Http\JsonResponse
+    {
+        $image = OrderImage::find($id);
+        if (!$image instanceof OrderImage && !$image->order instanceof Order) {
+            return Response::json([
+                'status' => false,
+                'message' => 'error in deleting order image',
+            ]);
+        }
+
+        $image->delete();
+        $model = $image->order;
+        return Response::json([
+            'status' => true,
+            'message' => 'Order Image deleted successfully',
+            'images' => OrderImageResource::collection($model)
         ]);
 
-        $order->update($validated);
+    }
+    public function orderImages($id): \Illuminate\Http\JsonResponse
+    {
+        $model = Order::find($id);
+        if (!$model instanceof Order) {
+            return Response::json([
+                'status' => false,
+                'message' => 'Order not found',
+            ]);
+        }
+        $images = OrderImage::where('order_id', $id)->orderBy('id', 'DESC')->get();
 
-        return response()->json([
+        return Response::json([
             'status' => true,
-            'message' => 'تم تحديث الطلب',
             'data' => [
-                new OrderResource($order)
-            ]
-        ]);
-    }
-
-    public function destroy($id): JsonResponse
-    {
-        Order::findOrFail($id)->delete();
-        return response()->json([
-            'status' => true,
-            'message' => 'تم حذف الطلب'
+                'images' => OrderImageResource::collection($images),
+            ],
         ]);
     }
 }

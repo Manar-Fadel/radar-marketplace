@@ -51,7 +51,7 @@
                                                 <img alt="" class="rounded-full size-9 shrink-0" :src="order.brand_image"/>
                                                 <div class="flex flex-col">
                                                     <a class="text-sm font-medium text-gray-900 hover:text-primary-active mb-px" href="#">
-                                                        @{{ order.brand_name }} / @{{ order.model_name }}
+                                                        @{{ order.brand_name }}
                                                     </a>
                                                 </div>
                                             </div>
@@ -68,15 +68,10 @@
                                     </tr>
                                     <tr>
                                         <td class="text-gray-600 font-normal">
-                                            Description: @{{ order.description_ar }}
+                                            Description: @{{ order.description }}
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td class="text-gray-600 font-normal">
-                                            Description: @{{ order.description_en }}
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -102,24 +97,6 @@
                         </div>
                     </div>
 
-                    <div class="card pb-2.5" style="min-width: 900px;">
-                        <div class="card-header" id="logs_data">
-                            <h3 class="card-title">
-                                Order Logs (Statuses)
-                            </h3>
-                        </div>
-                        <div class="card-body grid gap-5">
-                            <div data-datatable="true" data-datatable-page-size="20">
-                                <div class="scrollable-x-auto">
-                                    @include("cpanel.includes.order.logs")
-                                    <div v-if="logsLoading" class="flex flex-col gap-2.5">
-                                        <img src="{{ asset("assets/media/images/3-dots-bounce.svg") }}" width="30px" height="30px" style="margin: 20px auto;">
-                                    </div>
-                                    <p v-if="part_logs.length == 0">There is no logs yet</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

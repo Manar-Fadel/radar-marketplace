@@ -31,7 +31,7 @@
 
         <!-- Breadcrumb area start -->
         <!-- rts breadcrumb area start -->
-        <div class="rts-breadcrumb-area portfolio-3 jarallax" style="height: 300px; padding: 3% 0;">
+        <div class="rts-category-area rts-breadcrumb-area portfolio-3 jarallax" style="margin-top: 0; height: 300px; padding: 3% 0;">
             <div class="container">
                 <div class="breadcrumb-area-wrapper">
                     <h1 class="title">{{ __('web.Account') }}</h1>
@@ -45,41 +45,56 @@
         <!-- rts breadcrumb area end -->
         <!-- Breadcrumb area end -->
         <!-- Contact Start -->
-        <div class="rts-category-area rts-contact-page-form-area rts-section-gapNew rts-section-gap account" style="padding-top: 30px; margin-top: 0;">
+        <div class="rts-category-area rts-contact-page-form-area rts-section-gapNew rts-section-gap account" style="margin-top: 0; padding-top: 30px;">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 m-auto">
                         <div class="mian-wrapper-form">
                             <div class="title-mid-wrapper-home-two sal-animate" data-sal="slide-up" data-sal-delay="150" data-sal-duration="800">
                                 <h3 class="title">
-                                    {{ __('web.Login') }}
+                                    {{ __('web.Registration') }}
                                 </h3>
-                                @include('cpanel.includes.alerts')
                             </div>
-                            <form id="contact-form-contact" action="{{ route('login') }}" method="post">
+                            <form id="contact-form-contact"  enctype="multipart/form-data"
+                                  action="{{ route('register') }}" method="post">
                                 @csrf
+
+                                <input type="text" name="full_name" id="full_name"
+                                       placeholder="{{ __('web.Full Name') }}" required="">
                                 <input type="email" name="email" id="email"
                                        placeholder="{{ __('web.Email Address') }}" required="">
+                                <input type="text" name="phone_number" id="phone_number"
+                                       placeholder="{{ __('web.Mobile Number') }}" required="">
 
-                                <input type="password" name="password" id="password"
-                                       placeholder="{{ __('web.Password') }}" required="">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label>{{ __('web.User Type') }}</label>
+                                    </div>
+                                    <div class="col-lg-9 row" style="font-size: 14px;">
+                                        <div class="radio-group col-lg-6 align-content-center">
+                                            <input type="radio" name="user_type" id="dealer_type" class="ratio font-semibold" value="DEALER">
+                                            <span for="dealer_type">{{ __('web.Dealer') }}</span>
 
-                                <div class="checkbox">
-                                    <input type="checkbox" value="lsRememberMe" id="rememberMe">
-                                    <label for="rememberMe">
-                                        {{ __('web.Remember me') }}
-                                    </label>
+                                        </div>
+                                        <div class="radio-group col-lg-6 align-content-center">
+                                            <input type="radio" name="user_type" id="bank_type" class="ratio font-semibold" value="BANK_DELEGATE">
+                                            <span for="bank_type">{{ __('web.Bank Delegate') }}</span>
+                                        </div>
+                                    </div>
                                 </div>
 
+                                <input type="file" class="img-fluid" name="document_url" id="document_url">
+                                <input type="file" class="img-fluid" name="showroom_doc" id="showroom_doc">
+
+                                <input type="password" name="password" id="password"
+                                       placeholder="{{ __('web.New Password') }}" required="">
+                                <input type="password" name="password_confirmation" id="password_confirmation"
+                                       placeholder="{{ __('web.Confirm Password') }}" required="">
+
                                 <button type="submit" class="rts-btn btn-primary radius-small">
-                                    {{ __('web.Log In') }}
+                                    {{ __('web.Register') }}
                                 </button>
                             </form>
-                            <div class="forgot-password">
-                                <a href="{{ route('register') }}">
-                                    {{ __('web.Create New Account? register now') }}
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>

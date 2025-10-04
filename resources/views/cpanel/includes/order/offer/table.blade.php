@@ -13,49 +13,28 @@
             <th class="min-w-[150px]">
                <span class="sort">
                 <span class="sort-label font-normal text-gray-700">
-                 Part Number
+                 Order Number
                 </span>
                </span>
             </th>
             <th class="min-w-[300px]">
                <span class="sort asc">
                     <span class="sort-label font-normal text-gray-700">
-                     Seller
+                     Dealer
                     </span>
+               </span>
+            </th>
+            <th class="min-w-[200px]">
+               <span class="sort">
+                <span class="sort-label font-normal text-gray-700">
+                 Price
+                </span>
                </span>
             </th>
             <th class="min-w-[100px]">
                <span class="sort">
                 <span class="sort-label font-normal text-gray-700">
                  Status
-                </span>
-               </span>
-            </th>
-            <th class="min-w-[250px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                 State /Condition /original Status
-                </span>
-               </span>
-            </th>
-            <th class="min-w-[200px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                 Price / Delivery / Total
-                </span>
-               </span>
-            </th>
-            <th class="min-w-[80px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                 Kilometres
-                </span>
-               </span>
-            </th>
-            <th class="min-w-[150px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                 Guarantee Days
                 </span>
                </span>
             </th>
@@ -69,20 +48,6 @@
             <th class="min-w-[180px]">
                <span class="sort">
                 <span class="sort-label font-normal text-gray-700">
-                 New Image Requested
-                </span>
-               </span>
-            </th>
-            <th class="min-w-[150px]">
-               <span class="sort">
-                    <span class="sort-label font-normal text-gray-700">
-                     Tracking Note
-                    </span>
-               </span>
-            </th>
-            <th class="min-w-[180px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
                  Images
                 </span>
                </span>
@@ -90,21 +55,14 @@
             <th class="min-w-[180px]">
                <span class="sort">
                 <span class="sort-label font-normal text-gray-700">
-                 Voice Note
+                     Date
                 </span>
                </span>
             </th>
             <th class="min-w-[180px]">
                <span class="sort">
                 <span class="sort-label font-normal text-gray-700">
-                 Video Note
-                </span>
-               </span>
-            </th>
-            <th class="min-w-[180px]">
-               <span class="sort">
-                <span class="sort-label font-normal text-gray-700">
-                 Created At
+                     Time
                 </span>
                </span>
             </th>
@@ -131,21 +89,6 @@
                                     <span class="menu-title">
                                      Edit
                                     </span>
-                                </button>
-                            </div>
-
-                            <div class="menu-separator">
-                            </div>
-                            <div class="menu-item">
-                                <button class="menu-link text-left" :data-modal-toggle="offer.upload_attachments_model_toggle"
-                                        @click="uploadOfferAttachment(offer, key, offerIndex)">
-                                <span class="menu-icon">
-                                     <i class="ki-filled ki-cloud-download">
-                                     </i>
-                                </span>
-                                    <span class="menu-title">
-                                 Upload Attachments
-                                </span>
                                 </button>
                             </div>
 
@@ -192,20 +135,23 @@
             <td class="text-gray-800 font-normal">
                 <button class="text-sm font-medium text-gray-900 hover:text-primary-active mb-px" style="color: blue"
                         :data-modal-toggle="offer.view_model_id_toggle" @click="viewModal(offer.part)">
-                    @{{ offer.part_number }}
+                    @{{ offer.order_number }}
                 </button>
             </td>
             <td class="text-gray-800 font-normal">
-                @{{ offer.seller_name  }} /
-                @{{ offer.seller_mobile }}
+                @{{ offer.dealer_name  }} /
+                @{{ offer.dealer_mobile }}
+            </td>
+            <td class="text-gray-800 font-normal">
+                @{{ offer.price }} SAR
             </td>
             <td>
-                <span v-if="offer.status == 'PENDING' || offer.status == 'RETURNED' || offer.status == 'DECLINED'" class="badge badge-danger badge-outline rounded-[30px]">
+                <span v-if="offer.status == 'PENDING' || offer.status == 'DECLINED'" class="badge badge-danger badge-outline rounded-[30px]">
                     <span class="size-1.5 rounded-full bg-danger me-1.5">
                     </span>
                      @{{ offer.status }}
                </span>
-                <span v-else-if="offer.status == 'ACCEPTED' || offer.status == 'CONFIRMED'" class="badge badge-primary badge-outline rounded-[30px]">
+                <span v-else-if="offer.status == 'ACCEPTED'" class="badge badge-primary badge-outline rounded-[30px]">
                     <span class="size-1.5 rounded-full bg-danger me-1.5">
                     </span>
                      @{{ offer.status }}
@@ -217,30 +163,7 @@
                </span>
             </td>
             <td class="text-gray-800 font-normal">
-                @{{ offer.state }} / @{{ offer.condition_status }} / @{{ offer.original_status }}
-            </td>
-            <td class="text-gray-800 font-normal">
-                @{{ offer.price }} / @{{ offer.delivery_fees }} / @{{ offer.total_price }}
-            </td>
-            <td class="text-gray-800 font-normal">
-                @{{ offer.kilometres }}
-            </td>
-            <td class="text-gray-800 font-normal">
-                @{{ offer.guarantee_days }}
-            </td>
-            <td class="text-gray-800 font-normal">
-                @{{ offer.note }}
-            </td>
-            <td class="text-gray-800 font-normal">
-                <button v-if="offer.is_new_image_requested" class="btn btn-warning btn-outline">
-                    @{{ offer.is_new_image_requested_text }}
-                </button>
-                <button v-if="!offer.is_new_image_requested" class="btn btn-primary btn-outline">
-                    @{{ offer.is_new_image_requested_text }}
-                </button>
-            </td>
-            <td class="text-gray-800 font-normal">
-                @{{ offer.tracking_note }}
+                @{{ offer.description }}
             </td>
             <td class="flex text-gray-800 font-normal" style="overflow: hidden;">
                 <div class="mr-2.5" v-for="image in offer.images" style="width: 100px;max-height: 60px;">
@@ -254,29 +177,10 @@
                 </div>
             </td>
             <td class="text-gray-800 font-normal">
-                <a v-if="offer.voice_note" class="btn btn-primary" :href="offer.voice_note" target="_blank">
-                    Voice Note
-                </a>
-                <button v-if="offer.voice_note" type="button"
-                        @click="deleteOfferVoice(offer, key, offerIndex)" style="position: relative;top: 20px;color: red; font-size: 18px;">
-                    <i class="ki-filled ki-trash-square">
-                    </i>
-                </button>
-                <span v-else >Not Attached</span>
+                @{{ offer.created_at_date }}
             </td>
             <td class="text-gray-800 font-normal">
-                <a v-if="offer.video_note" class="btn btn-primary" :href="offer.video_note" target="_blank">
-                    Video Note
-                </a>
-                <button v-if="offer.video_note" type="button"
-                        @click="deleteOfferVideo(offer, key, offerIndex)" style="position: relative;top: 20px;color: red; font-size: 18px;">
-                    <i class="ki-filled ki-trash-square">
-                    </i>
-                </button>
-                <span v-else >Not Attached</span>
-            </td>
-            <td class="text-gray-800 font-normal">
-                @{{ offer.created_at }}
+                @{{ offer.created_at_time }}
             </td>
         </tr>
     </tbody>

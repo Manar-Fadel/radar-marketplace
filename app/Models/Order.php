@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\URL;
 
 class Order extends Model
 {
@@ -17,9 +18,23 @@ class Order extends Model
         'brand_id',
         'description',
         'status',
+        'main_image_url',
         'accepted_offer_id',
         'accepted_dealer_id',
     ];
+
+    public function getMainImageUrlAttribute($value): string
+    {
+        if (!is_null($value)) {
+            if(strpos($value, "uploads/") !== false){
+                return URL::asset("storage/".$value);
+            }else{
+                return $value;
+            }
+        }else {
+            return URL::asset("assets/web/images/car-vector.png");
+        }
+    }
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

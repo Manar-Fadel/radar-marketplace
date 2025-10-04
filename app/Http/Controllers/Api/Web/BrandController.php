@@ -11,9 +11,18 @@ use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $brands = Brand::query()->orderBy('id', 'DESC')->get();
+        $search_word = $request->input('search_word');
+
+        $brands = Brand::query()
+                    ->when(! empty($search_word), function ($query) use ($search_word) {
+                        $query->where(function ($query) use ($search_word) {
+                            $query->where('brand_name_ar', 'like', '%'.$search_word.'%')
+                                ->orWhere('brand_name_en', 'like', '%'.$search_word.'%');
+                        });
+                    })->orderBy('id', 'DESC')
+                    ->get();
 
         return response()->json([
             'status' => 'true',

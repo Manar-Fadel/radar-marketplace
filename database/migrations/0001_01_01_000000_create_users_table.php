@@ -22,7 +22,8 @@ return new class extends Migration
             $table->enum('user_type', [Constants::BANK_DELEGATE, Constants::DEALER, Constants::ADMIN])->index();
             $table->string('id_number')->nullable();
             $table->string('work_card_image')->nullable();
-            $table->string('showroom_doc')->nullable();
+            $table->text('showroom_doc')->nullable();
+            $table->text('document_url')->nullable();
             $table->boolean('is_verified_email')->default(false)->index();
             $table->boolean('is_verified_admin')->default(false)->index();
             $table->boolean('is_trusted')->default(false)->index();

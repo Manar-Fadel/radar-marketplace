@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\URL;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -20,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone_number',
         'user_type',
         'document_url',
+        'showroom_doc',
         'is_verified_email',
         'is_verified_admin',
         'is_trusted',
@@ -29,7 +31,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    // 🔹 علاقات
+    public function getShowroomDocAttribute($value): string
+    {
+        if(strpos($value, "uploads/") !== false){
+            return URL::asset("storage/".$value);
+        }
+
+        return $value;
+    }
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);

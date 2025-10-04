@@ -12,7 +12,7 @@
            </span>
         </th>
 
-        <th class="min-w-[300px]">
+        <th class="min-w-[180px]">
            <span class="sort asc">
                 <span class="sort-label font-normal text-gray-700">
                  Brand
@@ -20,11 +20,19 @@
            </span>
         </th>
 
-        <th class="min-w-[100px]">
+        <th class="min-w-[300px]">
            <span class="sort asc">
                 <span class="sort-label font-normal text-gray-700">
                  Description
                 </span>
+           </span>
+        </th>
+
+        <th class="min-w-[150px]">
+           <span class="sort">
+            <span class="sort-label font-normal text-gray-700">
+             Status
+            </span>
            </span>
         </th>
 
@@ -56,14 +64,6 @@
            <span class="sort">
             <span class="sort-label font-normal text-gray-700">
              Customer
-            </span>
-           </span>
-        </th>
-
-        <th class="min-w-[150px]">
-           <span class="sort">
-            <span class="sort-label font-normal text-gray-700">
-             Status
             </span>
            </span>
         </th>
@@ -165,21 +165,6 @@
         <td class="text-gray-800 font-normal">
             @{{ order.description }}
         </td>
-        <td class="text-gray-800 font-normal">
-            @{{ order.offers_count }}
-        </td>
-
-        <td class="text-gray-800 font-normal">
-            @{{ order.created_at_date }}
-        </td>
-        <td class="text-gray-800 font-normal">
-            @{{ order.created_at_time }}
-        </td>
-
-        <td class="text-gray-800 font-normal">
-            @{{ order.user_name }} / @{{ order.user_mobile }}
-        </td>
-
         <td  class="text-gray-800 font-normal">
             <span v-if="order.status == 'PENDING' || order.status == 'CANCELLED'"
                   class="badge badge-danger badge-outline rounded-[30px]">
@@ -197,6 +182,20 @@
                 </span>
                  @{{ order.status }}
            </span>
+        </td>
+        <td class="text-gray-800 font-normal">
+            @{{ order.offers_count }}
+        </td>
+
+        <td class="text-gray-800 font-normal">
+            @{{ order.created_at_date }}
+        </td>
+        <td class="text-gray-800 font-normal">
+            @{{ order.created_at_time }}
+        </td>
+
+        <td class="text-gray-800 font-normal">
+            @{{ order.user_name }} / @{{ order.user_mobile }}
         </td>
 
     </tr>

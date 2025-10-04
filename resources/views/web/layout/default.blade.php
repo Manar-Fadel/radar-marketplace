@@ -14,12 +14,21 @@
     <link rel="stylesheet" href="{{ URL::asset("assets/web/css/vendor/bootstrap.min.css") }}">
     <link rel="stylesheet" href="{{ URL::asset("assets/web/fonts/rt-icon.css") }}">
     <link rel="stylesheet" href="{{ URL::asset("assets/web/css/style.css") }}">
+    <style>
+        .active {
+            color: var(--color-primary) !important;
+        }
+        .hidden{
+            display: none !important;
+        }
+    </style>
 </head>
 
-<body>
-<body @if(request()->route()->getName() == "login")
+<body @if(request()->route()->getName() == "login" || request()->route()->getName() == "register")
           class="account-page-body"
-          @endif>
+      @elseif(request()->route()->getName() == "my-orders")
+          class="with-sidebar"
+      @endif>
 <div class="loader-wrapper">
     <div class="loader">
     </div>
@@ -43,6 +52,7 @@
 <script src="{{ URL::asset("assets/web/js/vendor/waypoint.js") }}"></script>
 <!-- main js here -->
 <script src="{{ URL::asset("assets/web/js/main.js") }}"></script>
+@stack('scripts')
 </body>
 
 </html>

@@ -8,7 +8,8 @@
             </button>
         </div>
         <div class="modal-body p-0 pb-5">
-            <form class="card-body flex flex-col gap-5 p-10" method="post" action="{{ route("admin.dealers.store") }}">
+            <form class="card-body flex flex-col gap-5 p-10" enctype="multipart/form-data"
+                  method="post" action="{{ route("admin.dealers.store") }}">
                 @csrf
                 <input type="hidden" name="type" id="name" value="DEALER">
 
@@ -17,16 +18,16 @@
                         <label class="form-label max-w-56">
                             Full Name
                         </label>
-                        <input type="text" class="input" name="user_name" id="user_name" placeholder="Enter user name ">
+                        <input type="text" class="input" name="full_name" id="full_name" placeholder="Enter user full name ">
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-5">
                     <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
                         <label class="form-label max-w-56">
-                            Mobile
+                            Phone Number
                         </label>
-                        <input type="text" class="input" name="mobile" id="mobile" placeholder="Enter mobile eg. 966591111111">
+                        <input type="text" class="input" name="phone_number" id="phone_number" placeholder="Enter Phone Number eg. 966591111111">
                     </div>
                 </div>
 
@@ -42,18 +43,47 @@
                 <div class="flex flex-col gap-5">
                     <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
                         <label class="form-label max-w-56">
-                            Workshop Name
+                            Password
                         </label>
-                        <input type="text" class="input" name="work_shop_name" id="work_shop_name" placeholder="Enter workshop name">
+                        <input type="password" class="input" name="password" id="password">
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-5">
                     <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
                         <label class="form-label max-w-56">
-                            Workshop Number
+                            Password Confirmation
                         </label>
-                        <input type="text" class="input" name="work_shop_number" id="work_shop_number" placeholder="Enter workshop number">
+                        <input type="password" class="input" name="password_confirmation" id="password_confirmation">
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-5">
+                    <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
+                        <label class="form-label max-w-56">
+                            Identity Number
+                        </label>
+                        <input type="text" class="input" name="id_number" id="id_number"
+                               placeholder="Enter identity number">
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-5">
+                    <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
+                        <input class="checkbox checkbox-sm" type="checkbox" value="1"
+                               name="is_trusted" id="is_trusted" />
+                        <span class="checkbox-label">
+                           Is Trusted Dealer
+                        </span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-5">
+                    <div class="flex items-baseline flex-wrap lg:flex-nowrap gap-2.5">
+                        <label class="form-label max-w-48">
+                            showroom Doc
+                        </label>
+                        <input type="file" class="image-input" name="showroom_doc" id="showroom_doc">
                     </div>
                 </div>
 
